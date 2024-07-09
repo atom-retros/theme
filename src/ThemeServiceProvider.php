@@ -4,8 +4,8 @@ namespace Atom\Theme;
 
 use Atom\Core\Models\User;
 use Atom\Core\Models\WebsiteSetting;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
