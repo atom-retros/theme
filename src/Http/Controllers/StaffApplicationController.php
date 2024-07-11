@@ -25,9 +25,9 @@ class StaffApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(WebsiteOpenPosition $position): View
+    public function show(WebsiteOpenPosition $staffApplication): View
     {
-        $position->load('permission');
+        $position = $staffApplication->load('permission');
 
         return view('staff-applications.show', compact('position'));
     }
@@ -44,7 +44,7 @@ class StaffApplicationController extends Controller
             ->create($request->validated());
 
         return redirect()
-            ->route('staff-applications.show', $position)
+            ->route('community.staff-applications.show', $position)
             ->with('success', 'Your application has been submitted successfully.');
     }
 }

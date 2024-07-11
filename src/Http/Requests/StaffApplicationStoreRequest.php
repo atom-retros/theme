@@ -23,6 +23,7 @@ class StaffApplicationStoreRequest extends FormRequest
     {
         return [
             'position_id' => ['required', 'exists:website_open_positions,id'],
+            'rank_id' => ['required', 'exists:permissions,id'],
             'content' => ['required', 'string'],
         ];
     }

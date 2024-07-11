@@ -15,34 +15,51 @@ class LeaderboardController extends Controller
      */
     public function __invoke(): View
     {
-        $credits = User::orderBy('credits', 'desc')
+        $credits = User::with(['currencies' => fn ($query) => $query->where('type', 0)])
+            ->whereHas('currencies', fn ($query) => $query->where('type', 0))
+            ->join('users_currency', 'users.id', '=', 'users_currency.user_id')
+            ->where('users_currency.type', 0)
+            ->orderBy('users_currency.amount', 'desc')
+            ->select('users.*')
             ->limit(10)
             ->get();
 
-        $duckets = UserCurrency::with('user')
-            ->whereType(0)
-            ->orderBy('amount', 'desc')
+        $duckets = User::with(['currencies' => fn ($query) => $query->where('type', 5)])
+            ->whereHas('currencies', fn ($query) => $query->where('type', 5))
+            ->join('users_currency', 'users.id', '=', 'users_currency.user_id')
+            ->where('users_currency.type', 5)
+            ->orderBy('users_currency.amount', 'desc')
+            ->select('users.*')
             ->limit(10)
             ->get();
 
-        $diamonds = UserCurrency::with('user')
-            ->whereType(5)
-            ->orderBy('amount', 'desc')
+        $diamonds = User::with(['currencies' => fn ($query) => $query->where('type', 101)])
+            ->whereHas('currencies', fn ($query) => $query->where('type', 101))
+            ->join('users_currency', 'users.id', '=', 'users_currency.user_id')
+            ->where('users_currency.type', 101)
+            ->orderBy('users_currency.amount', 'desc')
+            ->select('users.*')
             ->limit(10)
             ->get();
 
-        $onlineTimes = UserSetting::with('user')
-            ->orderBy('online_time', 'desc')
+        $onlineTimes = User::with('settings')
+            ->join('users_settings', 'users.id', '=', 'users_settings.user_id')
+            ->orderBy('users_settings.online_time', 'desc')
+            ->select('users.*')
             ->limit(10)
             ->get();
 
-        $respects = UserSetting::with('user')
-            ->orderBy('respects_received', 'desc')
+        $respects = User::with('settings')
+            ->join('users_settings', 'users.id', '=', 'users_settings.user_id')
+            ->orderBy('users_settings.respects_received', 'desc')
+            ->select('users.*')
             ->limit(10)
             ->get();
 
-        $achievements = UserSetting::with('user')
-            ->orderBy('achievement_score', 'desc')
+        $achievements = User::with('settings')
+            ->join('users_settings', 'users.id', '=', 'users_settings.user_id')
+            ->orderBy('users_settings.achievement_score', 'desc')
+            ->select('users.*')
             ->limit(10)
             ->get();
 
