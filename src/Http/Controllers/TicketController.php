@@ -52,8 +52,7 @@ class TicketController extends Controller
             ->create($request->validated());
 
         return redirect()
-            ->route('help-center.tickets.show', $ticket)
-            ->with('success', 'Your ticket has been submitted successfully.');
+            ->route('help-center.tickets.show', $ticket);
     }
 
     /**
@@ -78,7 +77,6 @@ class TicketController extends Controller
         $ticket->delete();
 
         return redirect()
-            ->route('help-center.tickets.index')
-            ->with('success', 'Your ticket has been deleted successfully.');
+            ->route('help-center.tickets.index');
     }
 }

@@ -16,6 +16,6 @@ class RuleController extends Controller
         $categories = WebsiteRuleCategory::with('rules')
             ->get();
 
-        return view('help-center.rules', compact('categories'));
+        return view('rules', compact('categories'));
     }
 }

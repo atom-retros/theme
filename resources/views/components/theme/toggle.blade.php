@@ -1,4 +1,4 @@
-<button x-data="darkMode" x-bind="toggle" class="w-8 h-8 p-1 rounded-lg hover:gray-100 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700">
+<button x-data="darkMode" {{ $attributes->merge(['class' => 'w-8 h-8 p-1 rounded-lg hover:gray-100 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700']) }} x-bind="toggle">
     <svg class="block dark:hidden fill-gray-500" fill="currentColor" viewBox="0 0 20 20">
         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
     </svg>

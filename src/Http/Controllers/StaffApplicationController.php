@@ -44,7 +44,6 @@ class StaffApplicationController extends Controller
             ->create($request->validated());
 
         return redirect()
-            ->route('community.staff-applications.show', $position)
-            ->with('success', 'Your application has been submitted successfully.');
+            ->route('community.staff-applications.show', $position);
     }
 }

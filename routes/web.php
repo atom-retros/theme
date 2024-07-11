@@ -18,7 +18,6 @@ use Atom\Theme\Http\Controllers\StaffApplicationController;
 use Atom\Theme\Http\Controllers\StaffController;
 use Atom\Theme\Http\Controllers\TeamController;
 use Atom\Theme\Http\Controllers\TicketController;
-use Atom\Theme\Http\Controllers\TwoFactorController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -53,21 +52,13 @@ Route::middleware('web')->group(function () {
             ->name('me');
 
         Route::name('settings.')->prefix('settings')->group(function () {
-            Route::get('session-logs', SessionLogController::class)
-                ->middleware(Authenticate::using('sanctum'))
-                ->name('sessions');
-
             Route::resource('account', AccountSettingsController::class)
                 ->middleware(Authenticate::using('sanctum'))
-                ->only(['index', 'update']);
+                ->only(['index', 'store']);
 
             Route::resource('password', PasswordController::class)
                 ->middleware(Authenticate::using('sanctum'))
-                ->only(['index', 'update']);
-
-            Route::resource('2fa', TwoFactorController::class)
-                ->middleware(Authenticate::using('sanctum'))
-                ->only(['index', 'store', 'delete']);
+                ->only(['index', 'store']);
         });
     });
 

@@ -15,6 +15,6 @@ class ProfileController extends Controller
     {
         $user->load('friends', 'guildMembers.guild');
 
-        return view('users.profile', compact('user'));
+        return view('profile', compact('user'));
     }
 }

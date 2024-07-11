@@ -16,6 +16,6 @@ class HelpCentreController extends Controller
         $categories = WebsiteHelpCenterCategory::orderBy('position')
             ->get();
 
-        return view('help-center.index', compact('categories'));
+        return view('help-center', compact('categories'));
     }
 }
