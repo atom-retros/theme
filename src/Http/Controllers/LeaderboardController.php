@@ -3,8 +3,6 @@
 namespace Atom\Theme\Http\Controllers;
 
 use Atom\Core\Models\User;
-use Atom\Core\Models\UserCurrency;
-use Atom\Core\Models\UserSetting;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 

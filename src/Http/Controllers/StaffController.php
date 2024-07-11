@@ -2,11 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
 use Atom\Core\Models\Permission;
 use Atom\Core\Models\WebsiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 class StaffController extends Controller
 {

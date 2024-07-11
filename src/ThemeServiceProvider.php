@@ -3,10 +3,10 @@
 namespace Atom\Theme;
 
 use Atom\Core\Models\User;
-use Illuminate\Support\Facades\DB;
 use Atom\Core\Models\WebsiteSetting;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
