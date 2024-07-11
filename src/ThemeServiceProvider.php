@@ -3,9 +3,10 @@
 namespace Atom\Theme;
 
 use Atom\Core\Models\User;
+use Illuminate\Support\Facades\DB;
 use Atom\Core\Models\WebsiteSetting;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,16 +19,24 @@ class ThemeServiceProvider extends PackageServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'theme');
-
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'theme');
+
+        if (Schema::hasTable('website_settings')) {
+            $theme = DB::table('website_settings')
+                ->where('key', 'theme')
+                ->first();
+
+            $this->loadJsonTranslationsFrom(
+                resource_path(sprintf('views/%s/lang', $theme->value ?? 'atom')),
+                'theme',
+            );
+        }
 
         $package
             ->name('theme')
             ->hasConfigFile()
             ->hasRoute('web')
             ->hasViews()
-            ->hasTranslations()
             ->runsMigrations();
     }
 
