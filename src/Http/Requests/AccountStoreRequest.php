@@ -22,7 +22,7 @@ class AccountStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mail' => ['required', 'email', 'unique:users,mail,' . auth()->user()->id],
+            'mail' => ['required', 'email', 'unique:users,mail,'.auth()->user()->id],
             'motto' => ['required', 'string', 'max:30'],
         ];
     }

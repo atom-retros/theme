@@ -12,7 +12,6 @@ use Atom\Theme\Http\Controllers\PhotoController;
 use Atom\Theme\Http\Controllers\ProfileController;
 use Atom\Theme\Http\Controllers\RareValueController;
 use Atom\Theme\Http\Controllers\RuleController;
-use Atom\Theme\Http\Controllers\SessionLogController;
 use Atom\Theme\Http\Controllers\ShopController;
 use Atom\Theme\Http\Controllers\StaffApplicationController;
 use Atom\Theme\Http\Controllers\StaffController;

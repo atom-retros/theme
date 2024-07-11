@@ -2,9 +2,9 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Routing\Controller;
 use Atom\Theme\Http\Requests\PasswordStoreRequest;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PasswordController extends Controller
