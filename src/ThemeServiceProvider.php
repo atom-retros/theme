@@ -2,57 +2,59 @@
 
 namespace Atom\Theme;
 
-use Atom\Core\Models\User;
-use Atom\Core\Models\WebsiteSetting;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class ThemeServiceProvider extends PackageServiceProvider
+class ThemeServiceProvider extends ServiceProvider
 {
     /**
-     * Configure the package.
+     * Register any application services.
+     *
+     * @return void
      */
-    public function configurePackage(Package $package): void
+    public function register()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->mergeConfigFrom(
+            path: __DIR__.'/../config/theme.php',
+            key: 'theme'
+        );
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'theme');
+        $this->loadViewsFrom(
+            path: __DIR__.'/../resources/views',
+            namespace: 'theme',
+        );
 
-        if (Schema::hasTable('website_settings')) {
-            $theme = DB::table('website_settings')
-                ->where('key', 'theme')
-                ->first();
-
-            $this->loadJsonTranslationsFrom(
-                resource_path(sprintf('views/%s/lang', $theme->value ?? 'atom')),
-                'theme',
-            );
-        }
-
-        $package
-            ->name('theme')
-            ->hasConfigFile()
-            ->hasRoute('web')
-            ->hasViews()
-            ->runsMigrations();
+        $this->loadRoutesFrom(
+            path: __DIR__.'/../routes/web.php'
+        );
     }
 
     /**
-     * Boot the package services.
+     * Bootstrap any application services.
+     *
+     * @return void
      */
     public function boot()
     {
-        parent::boot();
-
-        if (Schema::hasTable('website_settings')) {
-            View::share('settings', WebsiteSetting::pluck('value', 'key'));
-        }
-
-        if (Schema::hasTable('users')) {
-            View::share('online', User::where('online', '1')->count());
+        try {
+            $onlineUsers = DB::table('users')
+                ->where('online', '1')
+                ->count();
+    
+            $settings = DB::table('website_settings')
+                ->pluck('value', 'key');
+    
+            $this->loadJsonTranslationsFrom(
+                resource_path(sprintf('views/%s/lang', $settings->get('theme', 'atom'))),
+                'theme',
+            );
+    
+            View::share('settings', $settings);
+    
+            View::share('online', $onlineUsers);
+        } catch (\Throwable $e) {
+            // 
         }
     }
 }
