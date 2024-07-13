@@ -41,20 +41,20 @@ class ThemeServiceProvider extends ServiceProvider
             $onlineUsers = DB::table('users')
                 ->where('online', '1')
                 ->count();
-    
+
             $settings = DB::table('website_settings')
                 ->pluck('value', 'key');
-    
+
             $this->loadJsonTranslationsFrom(
                 resource_path(sprintf('views/%s/lang', $settings->get('theme', 'atom'))),
                 'theme',
             );
-    
+
             View::share('settings', $settings);
-    
+
             View::share('online', $onlineUsers);
         } catch (\Throwable $e) {
-            // 
+            //
         }
     }
 }
