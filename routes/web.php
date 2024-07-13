@@ -15,6 +15,7 @@ use Atom\Theme\Http\Controllers\RuleController;
 use Atom\Theme\Http\Controllers\ShopController;
 use Atom\Theme\Http\Controllers\StaffApplicationController;
 use Atom\Theme\Http\Controllers\StaffController;
+use Atom\Theme\Http\Controllers\NitroController;
 use Atom\Theme\Http\Controllers\TeamController;
 use Atom\Theme\Http\Controllers\TicketController;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -44,6 +45,12 @@ Route::middleware('web')->group(function () {
     Route::get('client', ClientController::class)
         ->middleware(Authenticate::using('sanctum'), 'voting.check')
         ->name('client');
+
+    Route::name('game.')->prefix('game')->group(function () {
+        Route::get('nitro', NitroController::class)
+            ->middleware(Authenticate::using('sanctum'))
+            ->name('nitro');
+    });
 
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('me', HomeController::class)
