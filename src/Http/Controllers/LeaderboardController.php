@@ -22,21 +22,21 @@ class LeaderboardController extends Controller
             ->limit(10)
             ->get();
 
-        $duckets = User::with(['currencies' => fn ($query) => $query->where('type', 5)])
+        $duckets = User::with(['currencies' => fn ($query) => $query->where('type', 0)])
             ->where('rank', '<', $settings->get('min_staff_rank'))
-            ->whereHas('currencies', fn ($query) => $query->where('type', 5))
+            ->whereHas('currencies', fn ($query) => $query->where('type', 0))
             ->join('users_currency', 'users.id', '=', 'users_currency.user_id')
-            ->where('users_currency.type', 5)
+            ->where('users_currency.type', 0)
             ->orderBy('users_currency.amount', 'desc')
             ->select('users.*')
             ->limit(10)
             ->get();
 
-        $diamonds = User::with(['currencies' => fn ($query) => $query->where('type', 101)])
+        $diamonds = User::with(['currencies' => fn ($query) => $query->where('type', 5)])
             ->where('rank', '<', $settings->get('min_staff_rank'))
-            ->whereHas('currencies', fn ($query) => $query->where('type', 101))
+            ->whereHas('currencies', fn ($query) => $query->where('type', 5))
             ->join('users_currency', 'users.id', '=', 'users_currency.user_id')
-            ->where('users_currency.type', 101)
+            ->where('users_currency.type', 5)
             ->orderBy('users_currency.amount', 'desc')
             ->select('users.*')
             ->limit(10)
