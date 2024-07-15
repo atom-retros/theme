@@ -48,7 +48,7 @@ Route::middleware('web')->group(function () {
 
     Route::name('game.')->prefix('game')->group(function () {
         Route::get('nitro', NitroController::class)
-            ->middleware(Authenticate::using('sanctum'))
+            ->middleware(Authenticate::using('sanctum'), 'voting.check')
             ->name('nitro');
     });
 
