@@ -14,9 +14,13 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request): View
     {
+        $articles = WebsiteArticle::latest('id')
+            ->limit(5)
+            ->get();
+
         $article = WebsiteArticle::latest('id')
             ->first();
 
-        return view('home', compact('article'));
+        return view('home', compact('articles', 'article'));
     }
 }
