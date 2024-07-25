@@ -93,7 +93,7 @@ Route::middleware('web')->group(function () {
 
         Route::resource('articles', ArticleController::class)
             ->middleware(Authenticate::using('sanctum'))
-            ->only(['index', 'show']);
+            ->only(['index', 'show', 'update']);
 
         Route::resource('staff-applications', StaffApplicationController::class)
             ->middleware(Authenticate::using('sanctum'))

@@ -2,9 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Atom\Core\Models\WebsiteArticle;
-use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use Illuminate\Routing\Controller;
+use Atom\Core\Models\WebsiteArticle;
+use Illuminate\Http\RedirectResponse;
+use Atom\Theme\Http\Requests\ReactionUpdateRequest;
 
 class ArticleController extends Controller
 {
@@ -33,5 +35,28 @@ class ArticleController extends Controller
             ->get();
 
         return view('articles.show', compact('article', 'articles'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(ReactionUpdateRequest $request, WebsiteArticle $article): RedirectResponse
+    {
+        $reaction = $article->reactions()
+            ->where('user_id', $request->user()->id)
+            ->where('reaction', $request->get('reaction'));
+
+        match ($reaction->exists()) {
+            true => $reaction->delete(),
+            false => $article->reactions()
+                ->create([
+                    'user_id' => $request->user()->id,
+                    'reaction' => $request->get('reaction'),
+                    'active' => true,
+                ]),
+        };
+
+        return redirect()
+            ->back();
     }
 }
