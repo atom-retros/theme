@@ -2,10 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Atom\Core\Models\User;
-use Atom\Core\Models\WebsiteArticle;
-use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use Atom\Core\Models\User;
+use Illuminate\Routing\Controller;
+use Atom\Core\Models\WebsiteArticle;
 
 class ProfileController extends Controller
 {
@@ -14,12 +14,12 @@ class ProfileController extends Controller
      */
     public function __invoke(User $user): View
     {
+        $user->load('friends');
+
         $articles = WebsiteArticle::latest('id')
             ->limit(5)
             ->get();
 
-        $user->load('friends');
-
-        return view('profile', compact('articles', 'user'));
+        return view('profile', compact('user', 'articles'));
     }
 }

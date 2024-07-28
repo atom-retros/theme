@@ -2,10 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Atom\Core\Models\WebsiteArticle;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\View\View;
+use Atom\Core\Models\WebsiteArticle;
 
 class HomeController extends Controller
 {
