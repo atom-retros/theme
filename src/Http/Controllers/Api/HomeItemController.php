@@ -46,7 +46,7 @@ class HomeItemController extends Controller
         foreach (range(1, $item->count) as $index) {
             $request->user()
                 ->inventoryItems()
-                ->attach($request->get('item_id'), ['left' => null, 'top' => null, 'data' => json_encode([])]);
+                ->attach($request->get('item_id'), ['left' => null, 'top' => null, 'data' => json_encode((object) [])]);
         }
 
         return $this->index($request, $request->user());
@@ -66,7 +66,7 @@ class HomeItemController extends Controller
 
         DB::table('user_website_home_item')
             ->where('user_id', $request->user()->id)
-            ->update(['left' => null, 'top' => null, 'data' => []]);
+            ->update(['left' => null, 'top' => null, 'data' => (object) []]);
 
         foreach ($request->get('items') as $item) {
             if (!$existingItems->where('pivot.id', Arr::get($item, 'id'))->first()) {
