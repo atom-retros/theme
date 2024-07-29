@@ -31,7 +31,7 @@ class WebsiteHomeItemResource extends JsonResource
                 'id' => $this->pivot->id,
                 'left' => $this->pivot->left,
                 'top' => $this->pivot->top,
-                'data' => json_decode($this->pivot->data),
+                'data' => (object) json_decode($this->pivot->data),
             ]),
         ];
     }

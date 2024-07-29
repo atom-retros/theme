@@ -66,12 +66,14 @@ class HomeItemController extends Controller
 
         DB::table('user_website_home_item')
             ->where('user_id', $request->user()->id)
-            ->update(['left' => null, 'top' => null, 'data' => (object) []]);
+            ->update(['left' => null, 'top' => null]);
 
         foreach ($request->get('items') as $item) {
             if (!$existingItems->where('pivot.id', Arr::get($item, 'id'))->first()) {
                 continue;
             }
+
+            $item['data'] = json_encode((object) $item['data']);
 
             DB::table('user_website_home_item')
                 ->where('user_id', $request->user()->id)
