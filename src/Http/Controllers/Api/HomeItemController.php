@@ -54,7 +54,7 @@ class HomeItemController extends Controller
         foreach (range(1, $item->count) as $index) {
             $request->user()
                 ->inventoryItems()
-                ->attach($request->get('item_id'), ['left' => null, 'top' => null, 'data' => json_encode((object) [])]);
+                ->attach($request->get('item_id'), ['left' => null, 'top' => null, 'z' => 1, 'data' => json_encode((object) [])]);
         }
 
         return $this->index($request, $request->user());
@@ -86,7 +86,7 @@ class HomeItemController extends Controller
             DB::table('user_website_home_item')
                 ->where('user_id', $request->user()->id)
                 ->where('id', Arr::get($item, 'id'))
-                ->update(Arr::only($item, ['left', 'top', 'data']));
+                ->update(Arr::only($item, ['left', 'top', 'z', 'data']));
         }
 
         return $this->index($request, $request->user());
