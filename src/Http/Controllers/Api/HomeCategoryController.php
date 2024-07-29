@@ -14,7 +14,7 @@ class HomeCategoryController extends Controller
      */
     public function __invoke(): JsonResponse
     {
-        $categories = WebsiteHomeCategory::with('children')
+        $categories = WebsiteHomeCategory::with(['children' => fn ($query) => $query->has('items')])
             ->whereNull('website_home_category_id')
             ->get();
 
