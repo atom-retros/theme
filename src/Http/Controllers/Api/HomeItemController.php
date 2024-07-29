@@ -21,7 +21,7 @@ class HomeItemController extends Controller
     {
         $items = match ($request->get('type')) {
             'webstore' => WebsiteHomeItem::where('website_home_category_id', $request->get('category_id'))->get(),
-            'inventory' => $user->inventoryItems()->where('website_home_category_id', $request->get('category_id'))->get(),
+            'inventory' => $user->inventoryItems()->whereRelation('category', 'website_home_category_id', $request->get('category_id'))->get(),
             default => $user->activeItems()->get(),
         };
 
