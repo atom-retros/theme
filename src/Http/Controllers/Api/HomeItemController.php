@@ -20,9 +20,17 @@ class HomeItemController extends Controller
     public function index(Request $request, User $user): JsonResponse
     {
         $items = match ($request->get('type')) {
-            'webstore' => WebsiteHomeItem::where('website_home_category_id', $request->get('category_id'))->get(),
-            'inventory' => $user->inventoryItems()->whereRelation('category', 'website_home_category_id', $request->get('category_id'))->orWhere('website_home_category_id', $request->get('category_id'))->get(),
-            default => $user->activeItems()->get(),
+            'webstore' => WebsiteHomeItem::where('website_home_category_id', $request->get('category_id'))
+                ->get(),
+
+            'inventory' => $user->inventoryItems()
+                ->where('website_home_category_id', $request->get('category_id'))
+                ->orWhereRelation('category', 'website_home_category_id', $request->get('category_id'))
+                ->wherePivot('user_id', $request->user()->id)
+                ->get(),
+
+            default => $user->activeItems()
+                ->get(),
         };
 
         return WebsiteHomeItemResource::collection($items)
