@@ -21,12 +21,14 @@ class HomeItemController extends Controller
     {
         $items = match ($request->get('type')) {
             'webstore' => WebsiteHomeItem::where('website_home_category_id', $request->get('category_id'))
+                ->orderBy('name')
                 ->get(),
 
             'inventory' => $user->inventoryItems()
                 ->where('website_home_category_id', $request->get('category_id'))
                 ->orWhereRelation('category', 'website_home_category_id', $request->get('category_id'))
                 ->wherePivot('user_id', $request->user()->id)
+                ->orderBy('name')
                 ->get(),
 
             default => $user->activeItems()

@@ -16,6 +16,7 @@ class HomeCategoryController extends Controller
     {
         $categories = WebsiteHomeCategory::with(['children' => fn ($query) => $query->has('items')])
             ->whereNull('website_home_category_id')
+            ->orderBy('name')
             ->get();
 
         return WebsiteHomeCategoryResource::collection($categories)
