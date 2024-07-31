@@ -2,10 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers\Api;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Atom\Core\Models\WebsiteHomeCategory;
 use Atom\Theme\Http\Resources\WebsiteHomeCategoryResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
 
 class HomeCategoryController extends Controller
 {

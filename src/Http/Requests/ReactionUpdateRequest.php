@@ -23,7 +23,7 @@ class ReactionUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'reaction' => ['required', 'string', 'in:' . Arr::join(config('theme.reactions'), ',')],
+            'reaction' => ['required', 'string', 'in:'.Arr::join(config('theme.reactions'), ',')],
         ];
     }
 }

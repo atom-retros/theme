@@ -2,10 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
 use Atom\Core\Models\User;
-use Illuminate\Routing\Controller;
 use Atom\Core\Models\WebsiteArticle;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {

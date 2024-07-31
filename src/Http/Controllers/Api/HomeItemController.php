@@ -3,14 +3,14 @@
 namespace Atom\Theme\Http\Controllers\Api;
 
 use Atom\Core\Models\User;
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Atom\Rcon\Services\RconService;
 use Atom\Core\Models\WebsiteHomeItem;
+use Atom\Rcon\Services\RconService;
 use Atom\Theme\Http\Resources\WebsiteHomeItemResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class HomeItemController extends Controller
 {
@@ -79,7 +79,7 @@ class HomeItemController extends Controller
             ->update(['left' => null, 'top' => null]);
 
         foreach ($request->get('items') as $item) {
-            if (!$existingItems->where('pivot.id', Arr::get($item, 'id'))->first()) {
+            if (! $existingItems->where('pivot.id', Arr::get($item, 'id'))->first()) {
                 continue;
             }
 

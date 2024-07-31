@@ -2,11 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Atom\Core\Models\CameraWeb;
-use Illuminate\Routing\Controller;
 use Atom\Core\Models\WebsiteArticle;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
