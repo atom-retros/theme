@@ -15,7 +15,7 @@ class HomeCategoryController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $categories = WebsiteHomeCategory::with(['children' => fn ($query) => $query->where('permission_id', '>=', $request->user()->rank)->whereHas('items')])
+        $categories = WebsiteHomeCategory::with('children')
             ->where('permission_id', '>=', $request->user()->rank)
             ->whereNull('website_home_category_id')
             ->whereHas('children', fn ($query) => $query->where('permission_id', '>=', $request->user()->rank))
