@@ -50,6 +50,10 @@ Route::middleware('web')->group(function () {
         Route::get('nitro', NitroController::class)
             ->middleware(Authenticate::using('sanctum'), 'voting.check')
             ->name('nitro');
+
+        Route::get('nitro/novote', NitroController::class)
+            ->middleware(Authenticate::using('sanctum'))
+            ->name('nitro.novote');
     });
 
     Route::name('users.')->prefix('users')->group(function () {
