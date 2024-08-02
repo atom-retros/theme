@@ -21,7 +21,7 @@ class HomeItemController extends Controller
     {
         $items = match ($request->get('type')) {
             'webstore' => WebsiteHomeItem::where('website_home_category_id', $request->get('category_id'))
-                ->where('permission_id', '<=', $request->user()->rank)
+                ->where('permission_id', '>=', $request->user()->rank)
                 ->orderBy('name')
                 ->get(),
 
