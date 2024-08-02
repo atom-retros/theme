@@ -18,7 +18,6 @@ class HomeCategoryController extends Controller
         $categories = WebsiteHomeCategory::with('children')
             ->where('permission_id', '>=', $request->user()->rank)
             ->whereNull('website_home_category_id')
-            ->whereHas('children', fn ($query) => $query->where('permission_id', '>=', $request->user()->rank))
             ->get();
 
         return WebsiteHomeCategoryResource::collection($categories)
