@@ -43,7 +43,7 @@ Route::middleware('web')->group(function () {
         ->name('shop');
 
     Route::get('client', ClientController::class)
-        ->middleware(Authenticate::using('sanctum'), 'voting.check')
+        ->middleware(Authenticate::using('sanctum'))
         ->name('client');
 
     Route::name('game.')->prefix('game')->group(function () {
