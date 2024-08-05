@@ -1,12 +1,16 @@
 <?php
 
-use Atom\Theme\Http\Controllers\Api\HomeCategoryController;
-use Atom\Theme\Http\Controllers\Api\HomeItemController;
-use Atom\Theme\Http\Controllers\Api\UserController;
-use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Middleware\Authenticate;
+use Atom\Theme\Http\Controllers\Api\UserController;
+use Atom\Theme\Http\Controllers\Api\OnlineController;
+use Atom\Theme\Http\Controllers\Api\HomeItemController;
+use Atom\Theme\Http\Controllers\Api\HomeCategoryController;
 
 Route::middleware('api')->prefix('api')->group(function () {
+    Route::get('online', OnlineController::class)
+        ->name('api.online');
+
     Route::get('users/{user:username}', UserController::class)
         ->name('api.users');
 
