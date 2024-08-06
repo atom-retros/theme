@@ -50,7 +50,7 @@ class ThemeServiceProvider extends ServiceProvider
                 ->pluck('value', 'key');
 
             $this->loadJsonTranslationsFrom(
-                resource_path(sprintf('views/%s/lang', $settings->get('theme', 'atom'))),
+                resource_path(sprintf('themes/%s/lang', $settings->get('theme', 'atom'))),
                 'theme',
             );
 
