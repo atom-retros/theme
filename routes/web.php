@@ -7,7 +7,6 @@ use Atom\Theme\Http\Controllers\HelpCentreController;
 use Atom\Theme\Http\Controllers\HomeController;
 use Atom\Theme\Http\Controllers\IndexController;
 use Atom\Theme\Http\Controllers\LeaderboardController;
-use Atom\Theme\Http\Controllers\NitroController;
 use Atom\Theme\Http\Controllers\PasswordController;
 use Atom\Theme\Http\Controllers\PhotoController;
 use Atom\Theme\Http\Controllers\ProfileController;
@@ -42,18 +41,14 @@ Route::middleware('web')->group(function () {
         ->middleware(Authenticate::using('sanctum'))
         ->name('shop');
 
-    Route::get('client', ClientController::class)
-        ->middleware(Authenticate::using('sanctum'))
-        ->name('client');
-
     Route::name('game.')->prefix('game')->group(function () {
-        Route::get('nitro', NitroController::class)
+        Route::get('nitro', ClientController::class)
             ->middleware(Authenticate::using('sanctum'), 'voting.check')
             ->name('nitro');
 
-        Route::get('nitro/novote', NitroController::class)
+        Route::get('nitro/voted', ClientController::class)
             ->middleware(Authenticate::using('sanctum'))
-            ->name('nitro.novote');
+            ->name('nitro.voted');
     });
 
     Route::name('users.')->prefix('users')->group(function () {

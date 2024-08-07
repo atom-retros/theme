@@ -2,10 +2,10 @@
 
 namespace Atom\Theme\Http\Middleware;
 
-use Closure;
-use Qirolab\Theme\Theme;
-use Illuminate\Http\Request;
 use Atom\Core\Models\WebsiteSetting;
+use Closure;
+use Illuminate\Http\Request;
+use Qirolab\Theme\Theme;
 use Symfony\Component\HttpFoundation\Response;
 
 class ThemeMiddleware

@@ -17,7 +17,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'username' => $this->username,
-            'credits' => $this->when( $request->user()?->is($this->resource), $this->credits),
+            'credits' => $this->when($request->user()?->is($this->resource), $this->credits),
             'background' => $this->home_background ?: asset('images/home-bg.gif'),
             'look' => $this->look,
             'editable' => $request->user()?->is($this->resource),
