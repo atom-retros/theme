@@ -2,11 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
 use Atom\Core\Models\User;
-use Illuminate\Routing\Controller;
 use Atom\Theme\Http\Requests\AccountStoreRequest;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AccountSettingsController extends Controller
