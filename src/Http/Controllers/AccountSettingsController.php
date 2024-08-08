@@ -2,9 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Atom\Theme\Http\Requests\AccountStoreRequest;
-use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use Atom\Core\Models\User;
+use Illuminate\Routing\Controller;
+use Atom\Theme\Http\Requests\AccountStoreRequest;
+use Illuminate\Container\Attributes\Auth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AccountSettingsController extends Controller
@@ -22,9 +24,9 @@ class AccountSettingsController extends Controller
      */
     public function store(AccountStoreRequest $request): RedirectResponse
     {
-        $request->user()
-            ->update($request->validated());
+        $user = User::find($request->user()->id);
+        $user->update($request->validated());
 
-        return redirect()->route('users.settings.account.index');
+        return redirect()->back();
     }
 }
