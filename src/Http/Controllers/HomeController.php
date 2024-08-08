@@ -25,6 +25,7 @@ class HomeController extends Controller
         $photos = CameraWeb::whereIn('user_id', $request->user()->friends->pluck('user_two_id'))
             ->latest('id')
             ->limit(4)
+            ->where('approved', true)
             ->get();
 
         return view('home', compact('articles', 'article', 'photos'));
