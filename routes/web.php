@@ -3,6 +3,7 @@
 use Atom\Theme\Http\Controllers\AccountSettingsController;
 use Atom\Theme\Http\Controllers\ArticleController;
 use Atom\Theme\Http\Controllers\ClientController;
+use Atom\Theme\Http\Controllers\CommentController;
 use Atom\Theme\Http\Controllers\HelpCentreController;
 use Atom\Theme\Http\Controllers\HomeController;
 use Atom\Theme\Http\Controllers\IndexController;
@@ -93,6 +94,10 @@ Route::middleware('web')->group(function () {
         Route::resource('articles', ArticleController::class)
             ->middleware(Authenticate::using('sanctum'), 'voting.check')
             ->only(['index', 'show', 'update']);
+
+        Route::post('articles/{websiteArticle}/comment', CommentController::class)
+            ->middleware(Authenticate::using('sanctum'), 'voting.check')
+            ->name('articles.comments.store');
 
         Route::resource('staff-applications', StaffApplicationController::class)
             ->middleware(Authenticate::using('sanctum'), 'voting.check')
