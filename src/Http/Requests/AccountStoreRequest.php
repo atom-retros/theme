@@ -2,6 +2,7 @@
 
 namespace Atom\Theme\Http\Requests;
 
+use Atom\Theme\Rules\MatchCurrentEmail;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AccountStoreRequest extends FormRequest
@@ -22,7 +23,8 @@ class AccountStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mail' => ['sometimes', 'email', 'unique:users,mail,'.auth()->user()->id],
+            'mail' => ['sometimes', 'email', 'confirmed', 'unique:users,mail,'.auth()->user()->id],
+            'mail_current' => ['required_if:mail,!=,null', 'email', new MatchCurrentEmail],
             'motto' => ['sometimes', 'string', 'max:30'],
         ];
     }
