@@ -16,7 +16,7 @@ class PhotoController extends Controller
         $photos = CameraWeb::with('user')
             ->latest('id')
             ->where('approved', true)
-            ->get();
+            ->paginate(10);
 
         return view('photos', compact('photos'));
     }
