@@ -15,7 +15,7 @@ class MatchCurrentEmail implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if ($value !== auth()->user()->mail) {
-            $fail("The :attribute must match the current email.");
+            $fail('The :attribute must match the current email.');
         }
     }
 }

@@ -2,17 +2,15 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Spatie\ArrayToXml\ArrayToXml;
-use Illuminate\Routing\Controller;
 use Atom\Core\Models\WebsiteArticle;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Spatie\ArrayToXml\ArrayToXml;
 
 class SitemapController extends Controller
 {
     /**
      * The routes to not include in the sitemap.
-     *
-     * @var array
      */
     protected array $protectedRoutes = [
         'admin',
@@ -33,7 +31,6 @@ class SitemapController extends Controller
     public function __invoke(Request $request)
     {
 
-
         // $sitemap = ArrayToXml::convert($routes, [
         //     'rootElementName' => 'urlset',
         //     '_attributes' => [
@@ -47,7 +44,7 @@ class SitemapController extends Controller
 
         $routes = collect(app('router')->getRoutes()->getRoutes())
             ->filter(fn ($route) => in_array('GET', $route->methods()) && in_array('web', $route->middleware()))
-            ->filter(fn ($route) => !collect($this->protectedRoutes)->contains(fn ($protectedRoute) => str_contains($route->uri(), $protectedRoute)))
+            ->filter(fn ($route) => ! collect($this->protectedRoutes)->contains(fn ($protectedRoute) => str_contains($route->uri(), $protectedRoute)))
             ->map(fn ($route) => ['loc' => route($route->getName())])
             ->merge($articles)
             ->values()
