@@ -1,27 +1,31 @@
 <?php
 
-use Atom\Theme\Http\Controllers\AccountSettingsController;
-use Atom\Theme\Http\Controllers\ArticleController;
-use Atom\Theme\Http\Controllers\ClientController;
-use Atom\Theme\Http\Controllers\CommentController;
-use Atom\Theme\Http\Controllers\HelpCentreController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Middleware\Authenticate;
 use Atom\Theme\Http\Controllers\HomeController;
-use Atom\Theme\Http\Controllers\IndexController;
-use Atom\Theme\Http\Controllers\LeaderboardController;
-use Atom\Theme\Http\Controllers\PasswordController;
-use Atom\Theme\Http\Controllers\PhotoController;
-use Atom\Theme\Http\Controllers\ProfileController;
-use Atom\Theme\Http\Controllers\RareValueController;
 use Atom\Theme\Http\Controllers\RuleController;
 use Atom\Theme\Http\Controllers\ShopController;
-use Atom\Theme\Http\Controllers\StaffApplicationController;
-use Atom\Theme\Http\Controllers\StaffController;
 use Atom\Theme\Http\Controllers\TeamController;
+use Atom\Theme\Http\Controllers\IndexController;
+use Atom\Theme\Http\Controllers\PhotoController;
+use Atom\Theme\Http\Controllers\StaffController;
+use Atom\Theme\Http\Controllers\ClientController;
 use Atom\Theme\Http\Controllers\TicketController;
-use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Support\Facades\Route;
+use Atom\Theme\Http\Controllers\ArticleController;
+use Atom\Theme\Http\Controllers\CommentController;
+use Atom\Theme\Http\Controllers\ProfileController;
+use Atom\Theme\Http\Controllers\SitemapController;
+use Atom\Theme\Http\Controllers\PasswordController;
+use Atom\Theme\Http\Controllers\RareValueController;
+use Atom\Theme\Http\Controllers\HelpCentreController;
+use Atom\Theme\Http\Controllers\LeaderboardController;
+use Atom\Theme\Http\Controllers\AccountSettingsController;
+use Atom\Theme\Http\Controllers\StaffApplicationController;
 
 Route::middleware('web')->group(function () {
+    Route::get('sitemap.xml', SitemapController::class)
+        ->name('sitemap');
+
     Route::get('/', IndexController::class)
         ->middleware('guest')
         ->name('index');
