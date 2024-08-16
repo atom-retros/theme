@@ -1,32 +1,56 @@
 <?php
 
-use Atom\Theme\Http\Controllers\Api\HomeCategoryController;
-use Atom\Theme\Http\Controllers\Api\HomeItemController;
-use Atom\Theme\Http\Controllers\Api\OnlineController;
-use Atom\Theme\Http\Controllers\Api\UserController;
-use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Middleware\Authenticate;
+use Atom\Theme\Http\Controllers\Api\UserController;
+use Atom\Theme\Http\Controllers\Api\BadgeController;
+use Atom\Theme\Http\Controllers\Api\IndexController;
+use Atom\Theme\Http\Controllers\Api\HomeItemController;
+use Atom\Theme\Http\Controllers\Api\OnlineUserController;
+use Atom\Theme\Http\Controllers\Api\OnlineCountController;
+use Atom\Theme\Http\Controllers\Api\HomeCategoryController;
+use Atom\Theme\Http\Controllers\Api\WebsiteArticleController;
 
 Route::middleware('api')->prefix('api')->group(function () {
-    Route::get('online', OnlineController::class)
-        ->name('api.online');
-
     Route::get('users/{user:username}', UserController::class)
         ->name('api.users');
 
-    Route::get('users/home/categories', HomeCategoryController::class)
-        ->middleware(Authenticate::using('sanctum'))
-        ->name('api.users.home.categories');
+    // Atom specific routes.
+    Route::middleware(Authenticate::using('sanctum'))->group(function () {
+        Route::get('users/home/categories', HomeCategoryController::class)
+            ->name('api.users.home.categories');
 
-    Route::get('users/{user:username}/home/items', [HomeItemController::class, 'index'])
-        ->middleware(Authenticate::using('sanctum'))
-        ->name('api.users.home.items');
+        Route::get('users/{user:username}/home/items', [HomeItemController::class, 'index'])
+            ->name('api.users.home.items');
 
-    Route::post('users/home/items', [HomeItemController::class, 'store'])
-        ->middleware(Authenticate::using('sanctum'))
-        ->name('api.users.home.items.store');
+        Route::post('users/home/items', [HomeItemController::class, 'store'])
+            ->name('api.users.home.items.store');
 
-    Route::put('users/home/items', [HomeItemController::class, 'update'])
-        ->middleware(Authenticate::using('sanctum'))
-        ->name('api.users.home.items.update');
+        Route::put('users/home/items', [HomeItemController::class, 'update'])
+            ->name('api.users.home.items.update');
+    });
+
+    // Public api routes
+    Route::prefix('public')->group(function () {
+        Route::get('/', IndexController::class)
+            ->name('api.public.index');
+
+        Route::get('users/{user:username}', UserController::class)
+            ->name('api.public.users');
+
+        Route::get('online/count', OnlineCountController::class)
+            ->name('api.public.online.count');
+
+        Route::get('online/users', OnlineUserController::class)
+            ->name('api.public.online.users');
+
+        Route::apiResource('website-articles', WebsiteArticleController::class)
+            ->names('api.public.website-articles')
+            ->only(['index', 'show']);
+
+        Route::apiResource('badges', BadgeController::class)
+            ->names('api.public.badges')
+            ->parameters(['badges' => 'badge:code'])
+            ->only(['index', 'show']);
+    });
 });
