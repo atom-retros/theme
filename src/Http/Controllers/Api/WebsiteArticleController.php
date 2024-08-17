@@ -16,6 +16,7 @@ class WebsiteArticleController extends Controller
     public function index(Request $request): JsonResponse
     {
         $articles = WebsiteArticle::with('user')
+            ->where('is_published', true)
             ->latest('id')
             ->paginate(20);
 

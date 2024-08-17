@@ -16,6 +16,7 @@ class ArticleController extends Controller
     public function index(): View
     {
         $articles = WebsiteArticle::with('user')
+            ->where('is_published', true)
             ->latest()
             ->get();
 
@@ -30,6 +31,7 @@ class ArticleController extends Controller
         $article->load('user', 'comments.user', 'reactions.user');
 
         $articles = WebsiteArticle::with('user', 'comments.user', 'reactions.user')
+            ->where('is_published', true)
             ->latest()
             ->limit(15)
             ->get();
