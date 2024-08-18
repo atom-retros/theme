@@ -66,6 +66,10 @@ Route::middleware('web')->group(function () {
                 ->middleware(Authenticate::using('sanctum'), 'voting.check')
                 ->only(['index', 'store']);
 
+            Route::resource('email', AccountSettingsController::class)
+                ->middleware(Authenticate::using('sanctum'), 'voting.check')
+                ->only(['index', 'store']);
+
             Route::resource('password', PasswordController::class)
                 ->middleware(Authenticate::using('sanctum'), 'voting.check')
                 ->only(['index', 'store']);
