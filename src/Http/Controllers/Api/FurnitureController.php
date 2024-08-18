@@ -17,10 +17,10 @@ class FurnitureController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         $items = CatalogItem::with('itemBase', 'itemBase.items.user', 'itemBase.furnitureData')
+            ->whereHas('itemBase')
             ->whereHas('itemBase.items')
             ->whereHas('itemBase.furnitureData')
             ->whereHas('itemBase.items.user', fn ($query) => $query->where('rank', '<', 4))
-            ->where('cost_credits', '>', 0)
             ->where('club_only', '1')
             ->orderBy('cost_credits', 'DESC')
             ->get()
