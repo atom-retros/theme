@@ -2,6 +2,7 @@
 
 namespace Atom\Theme\Http\Controllers\Api;
 
+use Atom\Core\Models\CatalogItem;
 use Illuminate\Http\Request;
 use Atom\Core\Models\ItemBase;
 use Illuminate\Http\JsonResponse;
@@ -15,13 +16,15 @@ class FurnitureController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $items = ItemBase::with('items.user', 'catalogItems', 'furnitureData')
-            ->whereHas('items')
-            ->whereHas('catalogItems', fn ($query) => $query->where('cost_credits', '>', 0)->orderBy('cost_credits', 'ASC'))
-            ->whereHas('items.user', fn ($query) => $query->where('rank', '<', 4))
-            ->where('allow_trade', '1')
-            ->whereIn('interaction_type', ['default', 'dice', 'clothing'])
-            ->paginate(20);
+        $items = CatalogItem::with('itemBase', 'itemBase.items.user', 'itemBase.furnitureData')
+            ->whereHas('itemBase.items')
+            ->whereHas('itemBase.furnitureData')
+            ->whereHas('itemBase.items.user', fn ($query) => $query->where('rank', '<', 4))
+            ->where('cost_credits', '>', 0)
+            ->where('club_only', '1')
+            ->orderBy('cost_credits', 'DESC')
+            ->get()
+            ->unique('item_ids');
 
         return FurnitureResource::collection($items)
             ->response()

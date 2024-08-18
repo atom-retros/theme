@@ -16,12 +16,13 @@ class FurnitureResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'key' => $this->item_name,
-            'name' => $this->furnitureData?->name,
-            'description' => $this->furnitureData?->description,
-            'url' => Storage::disk('furniture_icons')->url(sprintf('%s_icon.png', str_replace('*', '_', $this->item_name))),
-            'in_circulation' => $this->items->count(),
+            'id' => $this->itemBase->id,
+            'key' => $this->itemBase->item_name,
+            'name' => $this->itemBase->furnitureData->name,
+            'description' => $this->itemBase->furnitureData->description,
+            'url' => Storage::disk('furniture_icons')->url(sprintf('%s_icon.png', str_replace('*', '_', $this->itemBase->item_name))),
+            'cost_credits' => $this->cost_credits,
+            'in_circulation' => $this->itemBase->items->count(),
         ];
     }
 }
