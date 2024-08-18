@@ -48,6 +48,10 @@ class HomeItemController extends Controller
     {
         $item = WebsiteHomeItem::findOrFail($request->get('item_id'));
 
+        if ($item->maximum_purchases !== -1) {
+            abort_if($request->user()->inventoryItems->where('id', $request->get('item_id'))->count() >= $item->maximum_purchases, JsonResponse::HTTP_BAD_REQUEST, 'You have reached the maximum amount of this item.');
+        }
+
         abort_if($request->user()->credits < $item->price, JsonResponse::HTTP_BAD_REQUEST);
 
         if (is_null($rconService->giveCredits($request->user()->id, -$item->price))) {
