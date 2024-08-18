@@ -10,6 +10,7 @@ use Atom\Theme\Http\Controllers\Api\OnlineUserController;
 use Atom\Theme\Http\Controllers\Api\OnlineCountController;
 use Atom\Theme\Http\Controllers\Api\HomeCategoryController;
 use Atom\Theme\Http\Controllers\Api\WebsiteArticleController;
+use Atom\Theme\Http\Controllers\Api\FurnitureController;
 
 Route::middleware('api')->prefix('api')->group(function () {
     Route::get('users/{user:username}', UserController::class)
@@ -43,6 +44,9 @@ Route::middleware('api')->prefix('api')->group(function () {
 
         Route::get('online/users', OnlineUserController::class)
             ->name('api.public.online.users');
+
+        Route::get('furniture', FurnitureController::class)
+            ->name('api.public.furniture');
 
         Route::apiResource('website-articles', WebsiteArticleController::class)
             ->names('api.public.website-articles')
