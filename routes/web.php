@@ -111,8 +111,8 @@ Route::middleware('web')->group(function () {
             ->middleware(Authenticate::using('sanctum'), 'voting.check')
             ->only(['index', 'show', 'store']);
 
-        Route::get('photos', PhotoController::class)
+        Route::resource('photos', PhotoController::class)
             ->middleware(Authenticate::using('sanctum'), 'voting.check')
-            ->name('photos');
+            ->only('index', 'update');
     });
 });
