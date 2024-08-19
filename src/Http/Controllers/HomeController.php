@@ -15,11 +15,14 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request): View
     {
-        $articles = WebsiteArticle::latest('id')
-            ->limit(5)
+        $articles = WebsiteArticle::with('user')
+            ->where('is_published', true)
+            ->latest('id')
             ->get();
 
-        $article = WebsiteArticle::latest('id')
+        $article = WebsiteArticle::with('user')
+            ->where('is_published', true)
+            ->latest('id')
             ->first();
 
         $photos = CameraWeb::whereIn('user_id', $request->user()->friends->pluck('user_two_id'))

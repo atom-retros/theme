@@ -16,7 +16,9 @@ class ProfileController extends Controller
     {
         $user->load('friends');
 
-        $articles = WebsiteArticle::latest('id')
+        $articles = WebsiteArticle::with('user')
+            ->where('is_published', true)
+            ->latest('id')
             ->limit(5)
             ->get();
 

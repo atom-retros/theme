@@ -13,8 +13,9 @@ class IndexController extends Controller
      */
     public function __invoke(): View
     {
-        $articles = WebsiteArticle::latest('id')
-            ->with('user')
+        $articles = WebsiteArticle::with('user')
+            ->where('is_published', true)
+            ->latest('id')
             ->limit(4)
             ->get();
 

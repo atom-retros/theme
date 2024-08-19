@@ -30,16 +30,9 @@ class SitemapController extends Controller
      */
     public function __invoke(Request $request)
     {
-
-        // $sitemap = ArrayToXml::convert($routes, [
-        //     'rootElementName' => 'urlset',
-        //     '_attributes' => [
-        //         'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
-        //         'xmlns:image' => 'http://www.google.com/schemas/sitemap-image/1.1',
-        //     ],
-        // ], true, 'UTF-8');
-
-        $articles = WebsiteArticle::all()
+        $articles = WebsiteArticle::with('user')
+            ->where('is_published', true)
+            ->latest('id')
             ->map(fn (WebsiteArticle $article) => ['url' => route('community.articles.show', $article->slug)]);
 
         $routes = collect(app('router')->getRoutes()->getRoutes())
