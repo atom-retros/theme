@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'background' => $this->home_background ?: asset('images/home-bg.gif'),
             'avatar' => $this->avatar,
             'look' => $this->look,
-            'editable' => $this->when(!!$request->user(), $request->user()?->is($this->resource)),
+            'editable' => $this->when((bool) $request->user(), $request->user()?->is($this->resource)),
         ];
     }
 }

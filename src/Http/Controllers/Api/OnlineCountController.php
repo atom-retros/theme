@@ -3,8 +3,8 @@
 namespace Atom\Theme\Http\Controllers\Api;
 
 use Atom\Core\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class OnlineCountController extends Controller

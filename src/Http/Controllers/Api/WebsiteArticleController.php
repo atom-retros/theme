@@ -2,11 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Atom\Core\Models\WebsiteArticle;
 use Atom\Theme\Http\Resources\WebsiteArticleResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class WebsiteArticleController extends Controller
 {

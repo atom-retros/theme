@@ -2,11 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
 use Atom\Core\Models\CameraWeb;
-use Illuminate\Routing\Controller;
-use Illuminate\Http\RedirectResponse;
 use Atom\Theme\Http\Requests\ReactionUpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 class PhotoController extends Controller
 {

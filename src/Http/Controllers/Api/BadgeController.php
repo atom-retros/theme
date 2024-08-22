@@ -3,11 +3,10 @@
 namespace Atom\Theme\Http\Controllers\Api;
 
 use Atom\Core\Models\Badge;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Atom\Theme\Http\Resources\BadgeResource;
-use Atom\Theme\Http\Resources\WebsiteArticleResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class BadgeController extends Controller
 {

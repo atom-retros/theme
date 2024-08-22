@@ -3,10 +3,10 @@
 namespace Atom\Theme\Http\Controllers\Api;
 
 use Atom\Core\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Atom\Theme\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class OnlineUserController extends Controller
 {

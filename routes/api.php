@@ -1,16 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Middleware\Authenticate;
-use Atom\Theme\Http\Controllers\Api\UserController;
 use Atom\Theme\Http\Controllers\Api\BadgeController;
-use Atom\Theme\Http\Controllers\Api\IndexController;
-use Atom\Theme\Http\Controllers\Api\HomeItemController;
-use Atom\Theme\Http\Controllers\Api\OnlineUserController;
-use Atom\Theme\Http\Controllers\Api\OnlineCountController;
-use Atom\Theme\Http\Controllers\Api\HomeCategoryController;
-use Atom\Theme\Http\Controllers\Api\WebsiteArticleController;
 use Atom\Theme\Http\Controllers\Api\FurnitureController;
+use Atom\Theme\Http\Controllers\Api\HomeCategoryController;
+use Atom\Theme\Http\Controllers\Api\HomeItemController;
+use Atom\Theme\Http\Controllers\Api\IndexController;
+use Atom\Theme\Http\Controllers\Api\OnlineCountController;
+use Atom\Theme\Http\Controllers\Api\OnlineUserController;
+use Atom\Theme\Http\Controllers\Api\UserController;
+use Atom\Theme\Http\Controllers\Api\WebsiteArticleController;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->prefix('api')->group(function () {
     Route::get('users/{user:username}', UserController::class)

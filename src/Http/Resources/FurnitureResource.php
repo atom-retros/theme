@@ -3,8 +3,8 @@
 namespace Atom\Theme\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class FurnitureResource extends JsonResource
 {

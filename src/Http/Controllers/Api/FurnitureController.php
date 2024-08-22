@@ -3,11 +3,10 @@
 namespace Atom\Theme\Http\Controllers\Api;
 
 use Atom\Core\Models\CatalogItem;
-use Illuminate\Http\Request;
-use Atom\Core\Models\ItemBase;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Atom\Theme\Http\Resources\FurnitureResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class FurnitureController extends Controller
 {

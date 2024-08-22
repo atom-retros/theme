@@ -2,8 +2,8 @@
 
 namespace Atom\Theme\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class IndexController extends Controller
