@@ -34,11 +34,7 @@ class PhotoController extends Controller
 
         match ($reaction->exists()) {
             true => $reaction->delete(),
-            false => $article->reactions()
-                ->create([
-                    'user_id' => $request->user()->id,
-                    'reaction' => $request->get('reaction'),
-                ]),
+            false => $reaction->create(['user_id' => $request->user()->id, 'reaction' => $request->get('reaction')]),
         };
 
         return redirect()

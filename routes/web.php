@@ -78,11 +78,11 @@ Route::middleware('web')->group(function () {
 
     Route::name('help-center.')->prefix('help-center')->group(function () {
         Route::get('/', HelpCentreController::class)
-            ->middleware(Authenticate::using('sanctum'), 'voting.check')
+            ->middleware('voting.check')
             ->name('index');
 
         Route::get('rules', RuleController::class)
-            ->middleware(Authenticate::using('sanctum'), 'voting.check')
+            ->middleware('voting.check')
             ->name('rules');
 
         Route::resource('tickets', TicketController::class)
