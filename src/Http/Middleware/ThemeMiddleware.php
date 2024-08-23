@@ -19,7 +19,7 @@ class ThemeMiddleware
     {
         $theme = WebsiteSetting::firstOrCreate(
             ['key' => 'theme'],
-            ['value' => 'atom']
+            ['value' => 'atom', 'comment' => 'Specifies the active CMS theme'],
         );
 
         if (! $theme->value || $theme->value === '1') {
