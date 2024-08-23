@@ -21,7 +21,7 @@ class WebsiteArticleResource extends JsonResource
             'title' => $this->title,
             'short_story' => $this->short_story,
             'full_story' => $this->full_story,
-            'image' => sprintf('%s%s', config('app.url'), Storage::url($this->image)),
+            'image' => Storage::url($this->image),
             'user' => UserResource::make($this->whenLoaded('user')),
             'redirect_url' => route('community.articles.show', $this),
             'resource_url' => route('api.public.website-articles.show', $this),
