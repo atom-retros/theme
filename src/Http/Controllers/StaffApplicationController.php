@@ -4,6 +4,7 @@ namespace Atom\Theme\Http\Controllers;
 
 use Atom\Core\Models\WebsiteOpenPosition;
 use Atom\Theme\Http\Requests\StaffApplicationStoreRequest;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 
@@ -15,8 +16,8 @@ class StaffApplicationController extends Controller
     public function index(): View
     {
         $positions = WebsiteOpenPosition::with('permission')
-            ->where('apply_from', '<=', now())
-            ->where('apply_to', '>', now())
+            ->where(fn (Builder $query) => $query->whereNull('apply_from')->orWhere('apply_from', '<=', now()))
+            ->where(fn (Builder $query) => $query->whereNull('apply_to')->orWhere('apply_to', '>', now()))
             ->get();
 
         return view('staff-applications.index', compact('positions'));
