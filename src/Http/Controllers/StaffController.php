@@ -20,7 +20,7 @@ class StaffController extends Controller
 
         $permissions = Permission::with('users')
             ->where('level', '>=', $settings->get('staff_min_rank', 4))
-            ->when($request->user()->rank < $settings->get('min_rank_to_see_hidden_staff', 6), fn ($query) => $query->where('hidden_rank', false)->whereRelation('users', 'hidden_staff', false))
+            ->orderBy('level', 'DESC')
             ->get();
 
         return view('staff', compact('permissions'));

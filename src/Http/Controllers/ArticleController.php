@@ -18,7 +18,7 @@ class ArticleController extends Controller
         $articles = WebsiteArticle::with('user')
             ->where('is_published', true)
             ->latest('id')
-            ->get();
+            ->paginate(8);
 
         return view('articles.index', compact('articles'));
     }
@@ -33,8 +33,7 @@ class ArticleController extends Controller
         $articles = WebsiteArticle::with('user', 'comments.user', 'reactions.user')
             ->where('is_published', true)
             ->latest('id')
-            ->limit(15)
-            ->get();
+            ->paginate(8);
 
         return view('articles.show', compact('article', 'articles'));
     }
