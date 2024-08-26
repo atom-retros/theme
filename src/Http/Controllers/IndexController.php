@@ -2,9 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Atom\Core\Models\WebsiteArticle;
-use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use Atom\Core\Models\CameraWeb;
+use Illuminate\Routing\Controller;
+use Atom\Core\Models\WebsiteArticle;
 
 class IndexController extends Controller
 {
@@ -19,6 +20,12 @@ class IndexController extends Controller
             ->limit(4)
             ->get();
 
-        return view('index', compact('articles'));
+        $photos = CameraWeb::with('user')
+            ->latest('id')
+            ->where('approved', true)
+            ->limit(4)
+            ->get();
+
+        return view('index', compact('articles', 'photos'));
     }
 }
