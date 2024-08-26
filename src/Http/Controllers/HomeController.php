@@ -15,6 +15,14 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request): View
     {
+        $referrals = $request->user()
+            ->referrals;
+
+        $friends = $request->user()
+            ->friends()
+            ->whereRelation('friend', 'online', '1')
+            ->get();
+
         $articles = WebsiteArticle::with('user')
             ->where('is_published', true)
             ->latest('id')
@@ -31,6 +39,6 @@ class HomeController extends Controller
             ->where('approved', true)
             ->get();
 
-        return view('home', compact('articles', 'article', 'photos'));
+        return view('home', compact('articles', 'article', 'friends', 'referrals', 'photos'));
     }
 }
