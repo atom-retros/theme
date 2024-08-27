@@ -13,20 +13,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class TicketController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request): View
-    {
-        $tickets = $request->user()
-            ->tickets()
-            ->with('category')
-            ->latest()
-            ->get();
-
-        return view('tickets.index', compact('tickets'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request): View
@@ -60,6 +46,8 @@ class TicketController extends Controller
      */
     public function show(Request $request, WebsiteHelpCenterTicket $ticket): View
     {
+        abort_if($ticket->user_id !== $request->user()->id, 403);
+
         $tickets = $request->user()
             ->tickets()
             ->with('category')
@@ -74,9 +62,11 @@ class TicketController extends Controller
      */
     public function destroy(Request $request, WebsiteHelpCenterTicket $ticket): RedirectResponse
     {
+        abort_if($ticket->user_id !== $request->user()->id, 403);
+
         $ticket->delete();
 
         return redirect()
-            ->route('help-center.tickets.index');
+            ->route('help-center.tickets.create');
     }
 }
