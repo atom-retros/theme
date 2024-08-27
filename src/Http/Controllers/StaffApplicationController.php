@@ -2,11 +2,12 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Atom\Core\Models\WebsiteOpenPosition;
-use Atom\Theme\Http\Requests\StaffApplicationStoreRequest;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Atom\Core\Models\WebsiteOpenPosition;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Atom\Theme\Http\Requests\StaffApplicationStoreRequest;
 
 class StaffApplicationController extends Controller
 {
@@ -26,11 +27,16 @@ class StaffApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(WebsiteOpenPosition $staffApplication): View
+    public function show(Request $request, WebsiteOpenPosition $staffApplication): View
     {
         $position = $staffApplication->load('permission');
 
-        return view('staff-applications.show', compact('position'));
+        $applied = $request->user()
+            ->staffApplications()
+            ->firstWhere('rank_id', $position->permission->id)
+            ->exists();
+
+        return view('staff-applications.show', compact('position', 'applied'));
     }
 
     /**
@@ -39,6 +45,7 @@ class StaffApplicationController extends Controller
     public function store(StaffApplicationStoreRequest $request)
     {
         $position = WebsiteOpenPosition::findOrFail($request->get('position_id'));
+
 
         $request->user()
             ->staffApplications()
