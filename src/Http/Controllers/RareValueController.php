@@ -15,7 +15,10 @@ class RareValueController extends Controller
      */
     public function __invoke(Request $request): View
     {
-        $categories = WebsiteRareValueCategory::with(['rareValues' => fn ($query) => $query->where('name', 'like', "%{$request->query('search')}%")])
+        $categories = WebsiteRareValueCategory::with([
+            'rareValues' => fn ($query) => $query->where('name', 'like', "%{$request->query('search')}%"),
+            'rareValues.item',
+        ])
             ->when($request->has('category_id'), fn (Builder $query) => $query->where('id', $request->query('category_id')))
             ->get();
 
