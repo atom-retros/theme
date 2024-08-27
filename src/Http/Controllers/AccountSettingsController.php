@@ -24,7 +24,10 @@ class AccountSettingsController extends Controller
     public function store(AccountStoreRequest $request): RedirectResponse
     {
         $user = User::find($request->user()->id);
-        $user->update($request->validated());
+
+        $user->update(
+            array_filter($request->validated())
+        );
 
         return redirect()->back();
     }

@@ -23,9 +23,9 @@ class AccountStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mail' => ['sometimes', 'email', 'confirmed', 'unique:users,mail,'.auth()->user()->id],
-            'mail_current' => ['required_if:mail,!=,null', 'email', new MatchCurrentEmail],
-            'motto' => ['sometimes', 'string', 'max:30'],
+            'mail_current' => ['sometimes', 'nullable', 'email', new MatchCurrentEmail],
+            'mail' => ['sometimes', 'nullable', 'email', 'confirmed', 'unique:users,mail,'.auth()->user()->id],
+            'motto' => ['sometimes', 'nullable', 'string', 'max:30'],
         ];
     }
 }
