@@ -14,7 +14,7 @@ class ProfileController extends Controller
      */
     public function __invoke(User $user): View
     {
-        $user->load('friends');
+        $user->load('friends', 'guilds', 'badges', 'rooms');
 
         $articles = WebsiteArticle::with('user')
             ->where('is_published', true)
