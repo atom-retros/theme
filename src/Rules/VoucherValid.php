@@ -21,7 +21,7 @@ class VoucherValid implements ValidationRule
             $fail('The :attribute is invalid.');
         }
 
-        if ($voucher->expires_at->isPast()) {
+        if ($voucher->expires_at?->isPast()) {
             $fail('The :attribute has expired.');
         }
 
