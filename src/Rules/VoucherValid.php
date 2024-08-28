@@ -19,14 +19,17 @@ class VoucherValid implements ValidationRule
 
         if (is_null($voucher)) {
             $fail('The :attribute is invalid.');
+            return;
         }
 
         if ($voucher->expires_at?->isPast()) {
             $fail('The :attribute has expired.');
+            return;
         }
 
         if ($voucher->max_uses > 0 && $voucher->redeems->count() >= $voucher->max_uses) {
             $fail('The :attribute has reached its maximum uses.');
+            return;
         }
     }
 }
