@@ -2,10 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\Routing\Controller;
-use Illuminate\Http\RedirectResponse;
 use Atom\Core\Models\WebsiteHelpCenterTicket;
 use Atom\Theme\Http\Requests\TicketReplyStoreRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controller;
 
 class TicketReplyController extends Controller
 {
@@ -15,7 +15,7 @@ class TicketReplyController extends Controller
     public function __invoke(TicketReplyStoreRequest $request, WebsiteHelpCenterTicket $ticket): RedirectResponse
     {
         abort_if($ticket->user_id !== $request->user()->id, 403);
-        
+
         $ticket->replies()
             ->create($request->validated());
 

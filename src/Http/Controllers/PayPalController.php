@@ -2,12 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\Support\Arr;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Atom\Core\Models\WebsiteSetting;
+use Illuminate\Support\Arr;
 use Srmklive\PayPal\Services\PayPal;
-use Illuminate\Http\RedirectResponse;
 
 class PayPalController extends Controller
 {
@@ -30,15 +29,15 @@ class PayPalController extends Controller
 
         $details = Arr::get($response, 'purchase_units.0.payments.captures.0');
 
-        if (!$details) {
+        if (! $details) {
             return redirect()->route('shop.index')
                 ->withErrors(['amount' => __('Something went wrong, please try again later')]);
         }
 
         $transaction->update([
-          'status' => Arr::get($details, 'status'),
-          'amount' => Arr::get($details, 'amount.value'),
-          'currency' => Arr::get($details, 'amount.currency_code'),
+            'status' => Arr::get($details, 'status'),
+            'amount' => Arr::get($details, 'amount.value'),
+            'currency' => Arr::get($details, 'amount.currency_code'),
         ]);
 
         if ($transaction->status !== 'COMPLETED') {

@@ -4,8 +4,8 @@ namespace Atom\Theme;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
-use Srmklive\PayPal\Services\PayPal;
 use Illuminate\Support\ServiceProvider;
+use Srmklive\PayPal\Services\PayPal;
 
 class ThemeServiceProvider extends ServiceProvider
 {

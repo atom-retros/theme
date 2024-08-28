@@ -2,11 +2,10 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Atom\Core\Models\WebsiteShopArticle;
 use Atom\Rcon\Services\RconService;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class PurchaseController extends Controller
 {
@@ -23,15 +22,15 @@ class PurchaseController extends Controller
         $this->deductBalance($request, $article);
 
         $this->giveRank($rconService, $request, $article);
-        
+
         $this->giveCredits($rconService, $request, $article);
-        
+
         $this->giveDuckets($rconService, $request, $article);
-        
+
         $this->giveDiamonds($rconService, $request, $article);
-        
+
         $this->giveBadges($rconService, $request, $article);
-        
+
         $this->giveFurniture($rconService, $request, $article);
 
         return redirect()->route('shop.index')
@@ -55,8 +54,9 @@ class PurchaseController extends Controller
             return;
         }
 
-        if (!$rconService->connected) {
-            $request->user()->update(['rank' => $article->give_rank]);   
+        if (! $rconService->connected) {
+            $request->user()->update(['rank' => $article->give_rank]);
+
             return;
         }
 
@@ -72,8 +72,9 @@ class PurchaseController extends Controller
             return;
         }
 
-        if (!$rconService->connected) {
+        if (! $rconService->connected) {
             $request->user()->increment('credits', $article->credits);
+
             return;
         }
 
@@ -89,7 +90,7 @@ class PurchaseController extends Controller
             return;
         }
 
-        if (!$rconService->connected) {
+        if (! $rconService->connected) {
             $request->user()->currencies()->where('type', 0)->increment('amount', $article->duckets);
 
             return;
@@ -107,7 +108,7 @@ class PurchaseController extends Controller
             return;
         }
 
-        if (!$rconService->connected) {
+        if (! $rconService->connected) {
             $request->user()->currencies()->where('type', 5)->increment('amount', $article->diamonds);
 
             return;
@@ -122,8 +123,9 @@ class PurchaseController extends Controller
     protected function giveBadges(RconService $rconService, Request $request, WebsiteShopArticle $article): void
     {
         foreach ($article->badgeItems as $badge) {
-            if (!$rconService->connected) {
+            if (! $rconService->connected) {
                 $request->user()->badges()->updateOrCreate(['badge_code' => $badge], ['slot_id' => 0]);
+
                 continue;
             }
 
@@ -145,7 +147,7 @@ class PurchaseController extends Controller
             ->flatten(1);
 
         foreach ($items as $item) {
-            if (!$rconService->connected) {
+            if (! $rconService->connected) {
                 $request->user()->items()->create($item);
 
                 continue;

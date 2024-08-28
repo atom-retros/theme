@@ -3,9 +3,9 @@
 namespace Atom\Theme\Http\Controllers;
 
 use Atom\Core\Models\WebsiteShopVoucher;
-use Illuminate\Routing\Controller;
-use Illuminate\Http\RedirectResponse;
 use Atom\Theme\Http\Requests\RedeemVoucherRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controller;
 
 class RedeemVoucherController extends Controller
 {

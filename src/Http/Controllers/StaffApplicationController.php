@@ -2,12 +2,12 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\View\View;
+use Atom\Core\Models\WebsiteOpenPosition;
+use Atom\Theme\Http\Requests\StaffApplicationStoreRequest;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Atom\Core\Models\WebsiteOpenPosition;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Atom\Theme\Http\Requests\StaffApplicationStoreRequest;
+use Illuminate\View\View;
 
 class StaffApplicationController extends Controller
 {
@@ -45,7 +45,6 @@ class StaffApplicationController extends Controller
     public function store(StaffApplicationStoreRequest $request)
     {
         $position = WebsiteOpenPosition::findOrFail($request->get('position_id'));
-
 
         $request->user()
             ->staffApplications()

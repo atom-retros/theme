@@ -2,11 +2,11 @@
 
 namespace Atom\Theme\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Atom\Core\Models\WebsiteSetting;
-use Srmklive\PayPal\Services\PayPal;
-use Illuminate\Http\RedirectResponse;
 use Atom\Theme\Http\Requests\TopUpRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controller;
+use Srmklive\PayPal\Services\PayPal;
 
 class TopUpController extends Controller
 {
@@ -26,7 +26,7 @@ class TopUpController extends Controller
                 'brand_name' => $settings->get('hotel_name'),
                 'landing_page' => 'BILLING',
                 'shipping_preference' => 'NO_SHIPPING',
-                'user_action' => 'CONTINUE'
+                'user_action' => 'CONTINUE',
             ],
             'purchase_units' => [
                 [
