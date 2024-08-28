@@ -17,7 +17,7 @@ class VoucherValid implements ValidationRule
     {
         $voucher = WebsiteShopVoucher::firstWhere('code', $value);
 
-        if (! $voucher) {
+        if (is_null($voucher)) {
             $fail('The :attribute is invalid.');
         }
 
