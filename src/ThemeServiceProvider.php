@@ -4,6 +4,7 @@ namespace Atom\Theme;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Srmklive\PayPal\Services\PayPal;
 use Illuminate\Support\ServiceProvider;
 
 class ThemeServiceProvider extends ServiceProvider
@@ -41,13 +42,29 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->bind(PayPal::class, function () {
+            $provider = new PayPal;
+            $provider->setApiCredentials(config('paypal'));
+            $provider->getAccessToken();
+
+            return $provider;
+        });
+
+        $this->setupViews();
+    }
+
+    /**
+     * Setup views.
+     */
+    protected function setupViews(): void
+    {
         try {
+            $settings = DB::table('website_settings')
+                ->pluck('value', 'key');
+
             $onlineUsers = DB::table('users')
                 ->where('online', '1')
                 ->count();
-
-            $settings = DB::table('website_settings')
-                ->pluck('value', 'key');
 
             $this->loadJsonTranslationsFrom(
                 resource_path(sprintf('themes/%s/lang', $settings->get('theme', 'atom'))),
