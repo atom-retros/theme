@@ -22,7 +22,9 @@ class FurnitureResource extends JsonResource
             'description' => $this->itemBase->furnitureData->description,
             'url' => Storage::disk('furniture_icons')->url(sprintf('%s_icon.png', str_replace('*', '_', $this->itemBase->item_name))),
             'cost_credits' => $this->cost_credits,
-            'in_circulation' => $this->itemBase->items->count(),
+            'in_circulation' => $this->itemBase->items
+                ->filter(fn ($item) => optional($item->user)->rank < 4)
+                ->count(),
         ];
     }
 }
