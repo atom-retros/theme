@@ -15,6 +15,10 @@ class UserController extends Controller
      */
     public function __invoke(Request $request, User $user): JsonResponse
     {
+        if (!config('theme.api.user_endpoint_enabled')) {
+            return response()->json(['error' => 'This endpoint is disabled.'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         return UserResource::make($user)
             ->response()
             ->setStatusCode(JsonResponse::HTTP_OK);

@@ -19,6 +19,10 @@ class HomeItemController extends Controller
      */
     public function index(Request $request, User $user): JsonResponse
     {
+        if (! config('theme.api.home_item_endpoint_enabled')) {
+            return response()->json(['error' => 'This endpoint is disabled.'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         $items = match ($request->get('type')) {
             'webstore' => WebsiteHomeItem::where('website_home_category_id', $request->get('category_id'))
                 ->where('permission_id', '<=', $request->user()->rank)

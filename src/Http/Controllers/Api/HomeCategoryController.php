@@ -15,6 +15,10 @@ class HomeCategoryController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
+        if (!config('theme.api.home_category_endpoint_enabled')) {
+            return response()->json(['error' => 'This endpoint is disabled.'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         $categories = WebsiteHomeCategory::with('children')
             ->where('permission_id', '<=', $request->user()->rank)
             ->whereNull('website_home_category_id')

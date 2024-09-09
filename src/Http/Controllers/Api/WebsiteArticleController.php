@@ -15,6 +15,10 @@ class WebsiteArticleController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        if (!config('theme.api.website_article_endpoint_enabled')) {
+            return response()->json(['error' => 'This endpoint is disabled.'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         $articles = WebsiteArticle::with('user')
             ->where('is_published', true)
             ->latest('id')

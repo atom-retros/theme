@@ -15,6 +15,10 @@ class BadgeController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        if (!config('theme.api.badge_endpoint_enabled')) {
+            return response()->json(['error' => 'This endpoint is disabled.'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         $badges = Badge::latest('id')
             ->paginate(20);
 
@@ -28,6 +32,10 @@ class BadgeController extends Controller
      */
     public function show(Request $request, Badge $badge): JsonResponse
     {
+        if (!config('theme.api.badge_endpoint_enabled')) {
+            return response()->json(['error' => 'This endpoint is disabled.'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         return BadgeResource::make($badge)
             ->response()
             ->setStatusCode(JsonResponse::HTTP_OK);
