@@ -7,6 +7,7 @@ use Atom\Theme\Http\Controllers\Api\HomeItemController;
 use Atom\Theme\Http\Controllers\Api\IndexController;
 use Atom\Theme\Http\Controllers\Api\OnlineCountController;
 use Atom\Theme\Http\Controllers\Api\OnlineUserController;
+use Atom\Theme\Http\Controllers\Api\TradeLogController;
 use Atom\Theme\Http\Controllers\Api\UserController;
 use Atom\Theme\Http\Controllers\Api\WebsiteArticleController;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -47,6 +48,9 @@ Route::middleware('api')->prefix('api')->group(function () {
 
         Route::get('furniture', FurnitureController::class)
             ->name('api.public.furniture');
+
+        Route::get('trade-logs', TradeLogController::class)
+            ->name('api.public.trade-logs');
 
         Route::apiResource('website-articles', WebsiteArticleController::class)
             ->names('api.public.website-articles')
