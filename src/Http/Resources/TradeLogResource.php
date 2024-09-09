@@ -16,17 +16,19 @@ class TradeLogResource extends JsonResource
     {
         $userOneItems = $this->items
             ->where('user_id', $this->user_one_id)
-            ->pluck('item');
+            ->pluck('item')
+            ->filter();
 
         $userTwoItems = $this->items
             ->where('user_id', $this->user_two_id)
-            ->pluck('item');
+            ->pluck('item')
+            ->filter();
 
         return [
             'id' => $this->id,
             'user_one_items' => FurnitureResource::collection($userOneItems),
             'user_two_items' => FurnitureResource::collection($userTwoItems),
-            'traded_at' => $this->timestamp,
+            'traded_at' => \Carbon\Carbon::createFromTimestamp($this->timestamp)->toDateTimeString(),
         ];
     }
 }

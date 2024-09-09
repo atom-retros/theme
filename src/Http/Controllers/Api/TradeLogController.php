@@ -16,7 +16,7 @@ class TradeLogController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $roomTradeLogs = RoomTradeLog::with(['items', 'items.item', 'items.item.catalogItems' => fn (Builder $query) => $query->where('club_only', '1')])
+        $roomTradeLogs = RoomTradeLog::with(['items', 'items.item.itemBase.furnitureData',  'items.item.catalogItems' => fn (Builder $query) => $query->where('club_only', '1')])
             ->latest('id')
             ->paginate(20);
 
