@@ -17,7 +17,7 @@ class TradeLogResource extends JsonResource
         $userOneItems = $this->items
             ->where('user_id', $this->user_one_id)
             ->pluck('item');
-        
+
         $userTwoItems = $this->items
             ->where('user_id', $this->user_two_id)
             ->pluck('item');

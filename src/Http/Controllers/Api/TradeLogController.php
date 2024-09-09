@@ -2,12 +2,12 @@
 
 namespace Atom\Theme\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Atom\Core\Models\RoomTradeLog;
-use Illuminate\Routing\Controller;
 use Atom\Theme\Http\Resources\TradeLogResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class TradeLogController extends Controller
 {
