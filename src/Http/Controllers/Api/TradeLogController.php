@@ -16,7 +16,7 @@ class TradeLogController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        if (!config('theme.api.trade_log_endpoint_enabled')) {
+        if (! config('theme.api.trade_log_endpoint_enabled')) {
             return response()->json(['error' => 'This endpoint is disabled.'], JsonResponse::HTTP_FORBIDDEN);
         }
 
