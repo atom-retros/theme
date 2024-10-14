@@ -50,16 +50,20 @@ class PurchaseController extends Controller
      */
     protected function giveRank(RconService $rconService, Request $request, WebsiteShopArticle $article): void
     {
-        if ($request->user()->rank > $article->give_rank) {
+        if (is_null($article->give_rank) || $request->user()->rank > $article->give_rank) {
             return;
+        }
+
+        if (!is_null($article->rank_term)) {
+            $request->user()->update(['rank_expires_at' => now()->addMonths($article->rank_term)]);
         }
 
         if (! $rconService->connected) {
             $request->user()->update(['rank' => $article->give_rank]);
-
+            
             return;
         }
-
+        
         $rconService->setRank($request->user()->id, $article->give_rank);
     }
 
