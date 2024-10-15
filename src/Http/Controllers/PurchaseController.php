@@ -55,7 +55,7 @@ class PurchaseController extends Controller
         }
 
         if (!is_null($article->rank_term)) {
-            $request->user()->update(['rank_expires_at' => now()->addMonths($article->rank_term)]);
+            $request->user()->update(['rank_expires_at' => ($request->user()->rank_expires_at ?: now())->addMonths($article->rank_term)]);
         }
 
         if (! $rconService->connected) {
