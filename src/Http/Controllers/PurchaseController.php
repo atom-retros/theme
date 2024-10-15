@@ -56,20 +56,20 @@ class PurchaseController extends Controller
 
         if ($request->user()->rank > $article->give_rank) {
             $request->user()->increment('website_balance', $article->costs);
-            
+
             return;
         }
 
-        if (!is_null($article->rank_term)) {
+        if (! is_null($article->rank_term)) {
             $request->user()->update(['rank_expires_at' => ($request->user()->rank_expires_at ?: now())->addMonths($article->rank_term)]);
         }
 
         if (! $rconService->connected) {
             $request->user()->update(['rank' => $article->give_rank]);
-            
+
             return;
         }
-        
+
         $rconService->setRank($request->user()->id, $article->give_rank);
     }
 
