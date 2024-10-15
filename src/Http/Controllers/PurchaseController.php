@@ -50,7 +50,13 @@ class PurchaseController extends Controller
      */
     protected function giveRank(RconService $rconService, Request $request, WebsiteShopArticle $article): void
     {
-        if (is_null($article->give_rank) || $request->user()->rank > $article->give_rank) {
+        if ($request->user()->rank > $article->give_rank) {
+            $request->user()->increment('website_balance', $article->costs);
+            
+            return;
+        }
+
+        if (is_null($article->give_rank)) {
             return;
         }
 
