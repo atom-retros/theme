@@ -11,9 +11,6 @@ use Illuminate\View\View;
 
 class StaffController extends Controller
 {
-    /**
-     * Handle an incoming request.
-     */
     public function __invoke(Request $request): View
     {
         $settings = WebsiteSetting::whereIn('key', ['staff_min_rank', 'min_rank_to_see_hidden_staff'])
@@ -21,6 +18,7 @@ class StaffController extends Controller
 
         $permissions = Permission::with(['users' => fn (Builder $query) => $query->where('hidden_staff', '0')])
             ->where('level', '>=', $settings->get('staff_min_rank', 4))
+            ->where('hidden_rank', '=', 0)
             ->orderBy('level', 'DESC')
             ->get();
 
